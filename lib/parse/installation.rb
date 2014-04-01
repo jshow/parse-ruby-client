@@ -23,6 +23,16 @@ module Parse
       installation       
     end
 
+    def self.delete(installation_id)
+      installation = Installation.new(installation_id)
+
+      if response = Parse.client.request(installation.uri, :delete, nil, nil)
+        installation.parse Parse.parse_json(nil, response)
+      end
+
+      installation       
+    end
+
     def initialize(parse_object_id = nil)
       @parse_object_id = parse_object_id
       @device_type = nil
